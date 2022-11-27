@@ -3,13 +3,17 @@ const User = require('../models/user');
 const router = new express.Router();
 
 
-router.post('users/register', async(req, res) => {
-    const user = new User(req.body);
+
+router.post('/users/register', async(req, res) => {
+    const {username, password} = req.body 
+    const user = new User(username, password);
 
     try {
         await user.save();
+        const token = await user.generateAuthToken();
         res.status(201).send({
             user,
+            token,
             message: "New user account created"
         });
     } catch(e){
@@ -28,7 +32,45 @@ router.post('users/register', async(req, res) => {
             })
         }
     }
+});
+
+
+
+//Login 
+router.post("/users/login", async (req, res) => {
+    try {
+        const user = await User.findByCredentials(
+            req.body.username,
+            req.body.password
+        );
+        const token = await user.generateAuthToken();
+        res.status(200).send({ user, token });
+    } catch (e) {
+        res.status(500).send({ message: "Unable to login" });
+    }
+});
+
+
+//Logout 
+router.post("/users/logout", auth,  async(req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token;
+        })
+
+        await req.user.save();
+        res.send({message: "Logged Out"})
+    } catch (e) {
+        res.status(500).send(e);
+    }
 })
 
 
-module.exports = router
+//Get details 
+
+router.get("/users/me", auth, async(req, res) => {
+    res.send(req.user);
+})
+
+
+module.exports = router;
