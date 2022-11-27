@@ -30,6 +30,20 @@ const userSchema = new mongoose.Schema(
     }
 )
 
+userSchema.virtual("notes", {
+    ref: "Note", 
+    localField: "_id", 
+    foreignField: "writer"
+});
+
+userSchema.methods.toJSON = () => {
+    const user = this;
+    const userObject = user.toObject();
+    delete userObject.password;
+    delete userObject.tokens;
+    return userObject;
+}
+
 userSchema.methods.generateAuthToken = async function() {
     const user = this;
     const token = jwt.sign(
@@ -55,9 +69,6 @@ userSchema.statics.findByCredentials = async (username, password) => {
     }
     return user;
 };
-
-
-
 
 
 userSchema.pre('save', async function(next) {

@@ -4,10 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
 const userRouter = require('./routes/user-routes.js');
-
+const noteRouter = require('./routes/note-routes.js');
 
 app.use(cors());
 app.use(userRouter);
+app.use(noteRouter);
 
 
 mongoose.connect(
@@ -19,6 +20,6 @@ mongoose.connect(
 )
 .then(()=>{
     app.listen(process.env.PORT,()=>{
-        console.log(`Listening on Port ${PORT}`);
+        console.log(`Listening on Port ${process.env.PORT}`);
     })
 })
