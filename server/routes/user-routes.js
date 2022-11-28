@@ -6,14 +6,12 @@ const router = new express.Router();
 
 
 router.post('/users/register', async(req, res) => {
-    const {username, password} = req.body 
-    const user = new User(username, password);
-
+    const user = new User(req.body);
     try {
         await user.save();
         const token = await user.generateAuthToken();
+        const resuser = user._id
         res.status(201).send({
-            user,
             token,
             message: "New user account created"
         });
@@ -45,7 +43,7 @@ router.post("/users/login", async (req, res) => {
             req.body.password
         );
         const token = await user.generateAuthToken();
-        res.status(200).send({ user, token });
+        res.status(200).send({ token});
     } catch (e) {
         res.status(500).send({ message: "Unable to login" });
     }
