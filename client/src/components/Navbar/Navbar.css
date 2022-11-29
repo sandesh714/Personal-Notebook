@@ -1,0 +1,77 @@
+.Navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(43, 43, 43);
+    color: rgb(222, 246, 245);
+    /* color: rgb(96, 197, 255); */
+    height: 70px;
+}
+
+.NavTitle {
+    text-decoration: none;
+    color: rgb(246, 245, 238);
+}
+
+.Titletext {
+    margin-left: 30px;
+    font-weight: lighter;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.NavRouters {
+    font-size: 18px;
+    text-decoration: none;
+    color: rgb(253, 252, 245);
+}
+
+.routes {
+    margin: 0px 17px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.routes:hover {
+    text-decoration: underline;
+}
+
+.NavBtns {
+    display: flex;
+    flex-direction: row;
+}
+
+.CreateNote {
+    background-color: rgb(254, 253, 246);
+    /* background-color: rgb(96, 197, 255); */
+    height: 30px;
+    width: 90px;
+    margin-right: 20px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.CreateNote:hover {
+    background: none;
+    color: rgb(251, 249, 237);
+    /* color: rgb(96, 197, 255); */
+    border: 2px solid rgb(249, 248, 243);
+    /* border: 2px solid rgb(96, 197, 255); */
+}
+
+.DelAccountBtn {
+    width: 130px;
+    background-color: rgb(255, 62, 62);
+}
+
+.DelAccountBtn:hover {
+    background: none;
+    color: rgb(255, 62, 62);
+    border: 2px solid rgb(255, 62, 62);
+}

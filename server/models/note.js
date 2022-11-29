@@ -1,25 +1,29 @@
+
 const mongoose = require("mongoose");
+const noteSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            trim: true,
+        },
 
-
-
-const noteSchema = new mongoose.Schema({
-    note: {
-        type: String,
-        required: true,
-        trim: true
+        content: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "User",
+        },
     },
-    writer: {
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref: "User"
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
     }
-}, 
-{
-    timestamps: true,
-    toJSON: {virutals: true},
-})
-
+);
 
 const Note = mongoose.model("Note", noteSchema);
 
-module.exports = Note
+module.exports = Note;
